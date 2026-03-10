@@ -41,6 +41,9 @@ public class PaymentServiceImpl implements PaymentService {
 
             paymentRepository.save(payment);
 
+            order.setStatus("PAID");
+            orderRepository.save(order);
+
             return paymentIntent.getClientSecret();
         } catch (Exception e) {
             throw new RuntimeException("Payment Failed");
