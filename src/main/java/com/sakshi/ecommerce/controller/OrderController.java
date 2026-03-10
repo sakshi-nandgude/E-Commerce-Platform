@@ -7,6 +7,8 @@ import com.sakshi.ecommerce.repository.OrderRepository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -29,17 +31,17 @@ public class OrderController {
         return "Order placed successfully";
     }
 
-    @GetMapping
-    public List<Order> getMyOrders(Authentication authentication) {
-
-        String email = authentication.getName();
-
-        return orderService.getUserOrders(email);
-    }
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
+    }
+
+    @GetMapping
+    public Page<Order> getOrders(
+            Authentication auth,
+            Pageable pageable) {
+
+        return orderService.getUserOrders(auth.getName(), pageable);
     }
 }

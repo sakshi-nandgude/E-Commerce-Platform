@@ -5,6 +5,9 @@ import com.sakshi.ecommerce.repository.*;
 import com.sakshi.ecommerce.service.OrderService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
@@ -85,11 +88,11 @@ public class OrderServiceImpl implements OrderService {
         }
 
         @Override
-        public List<Order> getUserOrders(String email) {
+        public Page<Order> getUserOrders(String email, Pageable pageable) {
 
                 User user = userRepository.findByEmail(email)
                                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-                return orderRepository.findByUser(user);
+                return orderRepository.findByUser(user, pageable);
         }
 }
