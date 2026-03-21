@@ -194,15 +194,19 @@ PostgreSQL
 Git
 
 Clone Repository
+
 git clone https://github.com/sakshi-nandgude/E-Commerce-Platform
 
 Configure Database
+
 CREATE DATABASE ecommerce_db;
 
 Update application.properties:
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/ecommerce_db
+
 spring.datasource.username=your_username
+
 spring.datasource.password=your_password
 
 spring.jpa.hibernate.ddl-auto=update
@@ -225,28 +229,6 @@ mvn spring-boot:run
 Application runs on:
 
 http://localhost:8080
-
-## Testing with Postman
-Register
-POST /auth/register
-{
-  "name": "Sakshi",
-  "email": "sakshi@example.com",
-  "password": "password123",
-  "role": "CUSTOMER"
-}
-Login
-POST /auth/login
-{
-  "email": "sakshi@example.com",
-  "password": "password123"
-}
-Authorization Header
-Authorization: Bearer <JWT_TOKEN>
-
-Backend can be deployed on AWS EC2
-
-Application accessible via public endpoint
 
 ## Security
 
